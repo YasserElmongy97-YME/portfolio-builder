@@ -35,7 +35,7 @@ The production files are generated in `dist/`.
 
 ## Deployment
 
-The included GitHub Actions workflow builds the app and deploys it to GitHub Pages whenever a commit is pushed to `main`. In the repository settings, Pages must use **GitHub Actions** as its build and deployment source.
+The included GitHub Actions workflow builds the app and deploys it to GitHub Pages whenever a commit is pushed to `main`.
 
 ## Demo data
 
@@ -44,5 +44,6 @@ The app starts with fictional sample profile data so the editor can be explored 
 ## Internship task deliverables
 
 - Public GitHub repository: `https://github.com/YasserElmongy97-YME/portfolio-builder`
-- Live demo: will be available from the repository's **Deployments** tab after the first successful GitHub Pages workflow.
+- Live demo: `https://yasserelmongy97-yme.github.io/portfolio-builder/`
+- Example generated portfolio: [`examples/portfolio-demo.html`](examples/portfolio-demo.html)
 - Demo video and LinkedIn post: to be added after recording.
