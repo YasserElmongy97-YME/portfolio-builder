@@ -1,22 +1,16 @@
 # Portfolio Builder
 
-**Portfolio Builder** is a browser-based app for creating, customizing, previewing, and exporting a personal portfolio website. Edit profile information, skills, and projects; tailor the visual theme; and see changes in the live preview. Export a finished portfolio as a standalone HTML page, or import a previous export to continue editing it.
+**Portfolio Builder** is an online application for creating, customizing, previewing, and exporting polished personal portfolio websites. Edit profile details, skills, and projects; refine the visual theme with flexible design controls; and review changes in a responsive live preview. Export a standalone HTML portfolio or import a previous export to continue editing.
 
-## Features
+## Key features
 
-- Edit profile, skills, projects, and portfolio links.
-- Preview the result and customize responsive layouts.
-- Choose theme presets and adjust typography, colors, layout, cards, buttons, sections, and navigation.
+- Manage profile information, skills, and project content.
+- Preview portfolios and customize responsive layouts.
+- Personalize typography, colors, layout, cards, buttons, sections, and navigation.
 - Save portfolio data in the browser.
-- Export a standalone HTML portfolio and import it later with validation and confirmation.
-
-## Technology
-
-React, JavaScript, HTML, CSS, and Vite. The public application is hosted on GitHub Pages.
+- Import and export standalone portfolio pages.
 
 ## Project links
 
-- **Live demo:** [Open Portfolio Builder](https://yasserelmongy97-yme.github.io/portfolio-builder/)
-- **Source code:** [GitHub repository](https://github.com/YasserElmongy97-YME/portfolio-builder)
-- **Developer profile:** [Yasser Elmongy on LinkedIn](https://www.linkedin.com/in/yasserelmongy)
-- **Personal portfolio:** [View personal portfolio](https://yasserelmongy97-yme.github.io/portfolio/)
+- **Live application:** [Open Portfolio Builder](https://yasserelmongy97-yme.github.io/portfolio-builder/)
+- **Source code:** [View the GitHub repository](https://github.com/YasserElmongy97-YME/portfolio-builder)
