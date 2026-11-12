@@ -56,10 +56,7 @@ export const compressImage = (file, max = 900, quality = 0.82) =>
     image.src = url;
   });
 
-// Uses the host save dialog when one is provided, otherwise a normal browser download.
-export const downloadFile = async (filename, text) => {
-  const host = await window.claude?.use?.("downloads");
-  if (host) return host.save({ filename, data: text });
+export const downloadFile = (filename, text) => {
   const url = URL.createObjectURL(new Blob([text], { type: "text/html" }));
   const link = Object.assign(document.createElement("a"), {
     href: url,
@@ -67,4 +64,20 @@ export const downloadFile = async (filename, text) => {
   });
   link.click();
   URL.revokeObjectURL(url);
+};
+
+export const mix = (a, b, weight) => {
+  const channels = (hex) =>
+    [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
+  const [x, y] = [channels(a), channels(b)];
+  return (
+    "#" +
+    x
+      .map((v, i) =>
+        Math.round(v * (1 - weight) + y[i] * weight)
+          .toString(16)
+          .padStart(2, "0"),
+      )
+      .join("")
+  );
 };

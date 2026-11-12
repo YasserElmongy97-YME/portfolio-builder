@@ -1,49 +1,36 @@
 # Portfolio Builder
 
-A responsive React application for creating and previewing a personal portfolio website, customizing its theme, saving edits in the browser, and exporting the finished portfolio as a standalone HTML file.
+Create, customize, preview and export a personal portfolio website.
 
-## Features
-
-- Edit profile details, skills, projects, and links.
-- Choose and customize theme presets, colors, fonts, buttons, and corner radius.
-- Preview the generated portfolio live at desktop, tablet, and mobile widths.
-- Save changes automatically in browser `localStorage`.
-- Export a standalone HTML portfolio.
-- Responsive generated portfolio output.
-
-## Tech stack
-
-React 18, Vite 5, and `htm`.
-
-## Run locally
+## Run
 
 ```bash
-npm ci
+npm install
 npm run dev
 ```
 
-Open the local URL printed by Vite (usually `http://localhost:5173`).
+Open the local URL printed in the terminal (usually http://localhost:5173).
 
-## Production build
+## Structure
 
-```bash
-npm run build
-npm run preview
-```
+- `src/App.jsx` – workspace layout, persistence, export
+- `src/data.js` – default content, theme presets, storage load
+- `src/siteBuilder.js` – generates the portfolio HTML used by the preview and the export
+- `src/components/` – editors, form fields and icons
+- `src/themeConfig.js` – font catalog, theme presets, design controls, theme defaults and validation
+- `src/portfolioFile.js` – embedded metadata, schema versioning and import parsing
+- `src/styles.css` – dashboard styling
 
-The production files are generated in `dist/`.
+Portfolio data is stored in `localStorage`. Export downloads a standalone HTML file.
 
-## Deployment
+## Export and import
 
-The included GitHub Actions workflow builds the app and deploys it to GitHub Pages whenever a commit is pushed to `main`.
+**Export** downloads a standalone HTML portfolio. The file also carries a hidden, versioned JSON block (`<script type="application/json" id="portfolio-builder-data">`) holding the editable data: profile, skills, projects and every theme setting.
 
-## Demo data
+**Import** (header button) reads an exported file locally, validates it, shows a summary and replaces the current portfolio only after confirmation. Nothing from the file is executed, and a failed import leaves the current portfolio untouched. Files exported before import support existed contain no metadata; they can be imported with a warning, recovering only their visible content and basic theme colors.
 
-The app starts with fictional sample profile data so the editor can be explored immediately. Replace it with your own details before recording or sharing a personal portfolio. The app stores edited content only in the current browser's local storage; the application does not upload that content to a backend.
+The metadata format is versioned (`SCHEMA_VERSION` in `src/portfolioFile.js`). Add a migration to `MIGRATIONS` when the format changes.
 
-## Internship task deliverables
+## Theme customization
 
-- Public GitHub repository: `https://github.com/YasserElmongy97-YME/portfolio-builder`
-- Live demo: `https://yasserelmongy97-yme.github.io/portfolio-builder/`
-- Example generated portfolio: [`examples/portfolio-demo.html`](examples/portfolio-demo.html)
-- Demo video and LinkedIn post: to be added after recording.
+The Theme tab has presets plus grouped controls for typography, colors, layout, cards, buttons, sections and navigation. Theme values are stored as overrides on top of the selected preset, so older saved portfolios keep their appearance. Fonts are loaded from Google Fonts only when a catalog font is selected, with system-font fallbacks. "Reset theme settings" restores the selected preset without touching content.

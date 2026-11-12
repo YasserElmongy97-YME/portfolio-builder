@@ -8,6 +8,7 @@ import { ProfileEditor } from "./components/ProfileEditor.js";
 import { SkillsEditor } from "./components/SkillsEditor.js";
 import { ProjectsEditor } from "./components/ProjectsEditor.js";
 import { ThemeEditor } from "./components/ThemeEditor.js";
+import { ImportDialog } from "./components/ImportDialog.js";
 
 const TABS = [
   ["profile", "Profile", "user"],
@@ -28,7 +29,8 @@ const App = () => {
     [full, setFull] = useState(false);
   const [status, setStatus] = useState("saved"),
     [toast, setToast] = useState(""),
-    [dlg, setDlg] = useState(null);
+    [dlg, setDlg] = useState(null),
+    [importing, setImporting] = useState(false);
   const first = useRef(true);
   const set = (k) => (v) => setD((o) => ({ ...o, [k]: v }));
   const say = (m) => {
@@ -63,6 +65,12 @@ const App = () => {
       if (e?.code !== "declined") say("Export failed. Please try again.");
     }
   };
+  const applyImport = (data) => {
+    setD(data);
+    setTab("profile");
+    setImporting(false);
+    say("Portfolio imported");
+  };
   const reset = () =>
     ask(
       "Reset everything to the default portfolio? Your changes will be lost.",
@@ -78,7 +86,7 @@ const App = () => {
   const frame = html`<iframe
     title="Portfolio preview"
     srcdoc=${site}
-    sandbox="allow-same-origin"
+    sandbox="allow-scripts"
     style=${{ maxWidth: full ? "100%" : width }}
   />`;
 
@@ -97,6 +105,9 @@ const App = () => {
           >${status === "saved" ? "All changes saved" : status === "saving" ? "Saving…" : "Could not save"}</em
         >
       </div>
+      <button class="btn ghost" onClick=${() => setImporting(true)}>
+        <${Icon} n="upload" /><span>Import</span>
+      </button>
       <button class="btn ghost" onClick=${reset} aria-label="Reset">
         <${Icon} n="reset" /><span>Reset</span>
       </button>
@@ -116,7 +127,7 @@ const App = () => {
           ${tab === "profile" && html`<${ProfileEditor} p=${d.profile} set=${set("profile")} say=${say} />`}
           ${tab === "skills" && html`<${SkillsEditor} skills=${d.skills} set=${set("skills")} ask=${ask} />`}
           ${tab === "projects" && html`<${ProjectsEditor} projects=${d.projects} set=${set("projects")} ask=${ask} say=${say} />`}
-          ${tab === "theme" && html`<${ThemeEditor} t=${d.theme} set=${set("theme")} />`}
+          ${tab === "theme" && html`<${ThemeEditor} t=${d.theme} set=${set("theme")} ask=${ask} />`}
         </div>
       </section>
       <section class="panel pv" aria-label="Live preview">
@@ -170,6 +181,7 @@ const App = () => {
         </div>
       </div>`
     }
+    ${importing && html`<${ImportDialog} onClose=${() => setImporting(false)} onApply=${applyImport} />`}
     ${toast && html`<div class="toast" role="status">${toast}</div>`}
   </div>`;
 };
